@@ -9,19 +9,20 @@ import (
 func main() {
 	in := bufio.NewScanner(os.Stdin)
 
-	// мапа хранит значения которые мы уже видели
-	alreadySeen := make(map[string]bool)
+	var prev string
 
 	for in.Scan() {
 		txt := in.Text()
 
-		// если мы такое значение уже видели, просто пропускаем строку
-		if _, found := alreadySeen[txt]; found {
+		if txt == prev {
 			continue
 		}
+		if txt < prev {
+			panic("data not sorted")
+		}
 
-		alreadySeen[txt] = true
-		
+		prev = txt
+
 		fmt.Println(txt)
 	}
 }
