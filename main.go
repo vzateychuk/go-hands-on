@@ -1,29 +1,27 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 )
 
-const GLOBAL_LIMIT = 100
-const MAX_CACHE_SIZE = 10 * GLOBAL_LIMIT
-
 func main() {
-	// 
-	var users map[string]string = map[string]string{
-		"name": "Vlad",
-		"lastname": "Zateychuk",
+	in := bufio.NewScanner(os.Stdin)
+
+	// мапа хранит значения которые мы уже видели
+	alreadySeen := make(map[string]bool)
+
+	for in.Scan() {
+		txt := in.Text()
+
+		// если мы такое значение уже видели, просто пропускаем строку
+		if _, found := alreadySeen[txt]; found {
+			continue
+		}
+
+		alreadySeen[txt] = true
+		
+		fmt.Println(txt)
 	}
-	fmt.Printf("%d %+v\n", len(users), users)
-
-	// создание с нужной емкостью
-	profiles := make(map[string]string, 10)
-	fmt.Printf("%d %+v\n", len(profiles), profiles)
-	// если ключ не удалось найти, вернётся значение по умолчанию для типа
-	mName := profiles["unknown"]
-	fmt.Printf("mName: %v\n", mName)
-
-	// проверка на существование ключа
-	mName, isNameExists := profiles["somename"]
-	fmt.Println(isNameExists)
-
 }
