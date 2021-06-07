@@ -7,12 +7,29 @@ type Person struct {
 	name string
 }
 
+type Account struct {
+	Id int
+	Number string
+	Person
+}
+
 func (p *Person) setName(name string) {
 	p.name = name
 }
 
 func main() {
-	pers := Person{1, "Vlad"}
+	pers := new(Person)
 	pers.setName("VZateychuk")
-	fmt.Println(pers)
+
+	var acc Account = Account{
+		Id: 1,
+		Number: "abc1234",
+		Person: Person{
+			key: 2,
+			name: "",
+		},
+	}
+
+	acc.setName("Ivan Ivanov")
+	fmt.Println(acc)
 }
