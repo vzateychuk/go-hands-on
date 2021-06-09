@@ -27,7 +27,7 @@ func startWorker(workerId int, in <-chan string) {
 }
 
 func main() {
-	// runtime.GOMAXPROCS(0)               // попробуйте с 0 (все доступные) и 1
+	runtime.GOMAXPROCS(1)               // количество cpu которые могут быть использованы
 	workerInput := make(chan string, 2) // канал которым будут пользоваться goroutine
 	// стартует pool worker-в зачитывающих значения из канала
 	for i := 0; i < goroutineAmount; i++ {
