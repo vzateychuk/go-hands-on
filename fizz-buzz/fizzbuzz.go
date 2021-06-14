@@ -6,13 +6,14 @@ import (
 )
 
 func fizzbuzz(i int) string {
-	if i%3 == 0 && i%5 == 0 {
+	switch {
+	case i%3 == 0 && i%5 == 0:
 		return "FizzBuzz"
-	} else if i%3 == 0 {
+	case i%3 == 0:
 		return "Fizz"
-	} else if i%5 == 0 {
+	case i%3 == 0:
 		return "Buzz"
-	} else {
+	default:
 		return strconv.Itoa(i)
 	}
 }
