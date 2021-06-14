@@ -2,11 +2,11 @@ package main
 
 import "fmt"
 
-func swap(a *int, b *int) {
-	fmt.Printf("before swap: a=%#v, *a=%#v, b=%#v, *b=%#v\n", a, *a, b, *b)
-	// a,b = b,a // не работает
-	*a, *b = *b, *a // вот так работает
-	fmt.Printf("after swap: a=%#v, *a=%#v, b=%#v, *b=%#v\n", a, *a, b, *b)
+func swap(c *int, d *int) {
+	fmt.Printf("before swap: c=%#v, *c=%#v, d=%#v, *d=%#v\n", c, *c, d, *d)
+	// c,d = d,c // не работает
+	*c, *d = *d, *c // вот так работает
+	fmt.Printf("after swap: c=%#v, *c=%#v, d=%#v, *d=%#v\n", c, *c, d, *d)
 }
 
 func main() {
