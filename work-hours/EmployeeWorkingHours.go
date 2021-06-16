@@ -25,7 +25,7 @@ func (dev *Developer) LogHours(day Weekday, hours int) *Developer {
 	return dev
 }
 
-func (dev *Developer) HoursWorked() (int, int) {
+func (dev *Developer) HoursWorked() (hours int, salary int) {
 	totalHours := 0
 	for idx, hourPerDay := range dev.workHours {
 		totalHours += hourPerDay
