@@ -21,7 +21,11 @@ type directDeposit struct {
 
 // The method  will return ErrInvalidRoutingNum when the routing number is less than 100
 func (depo *directDeposit) validateRoutingNumber() {
-
+	defer func() {
+		if errString := recover(); errString != nil {
+			fmt.Println(errString)
+		}
+	}()
 	if depo.routingNumber < 100 {
 		panic(ErrInvalidRoutingNum)
 	}
@@ -29,7 +33,11 @@ func (depo *directDeposit) validateRoutingNumber() {
 
 /* return ErrInvalidLastName when the lastName is an empty string. */
 func (depo *directDeposit) validateLastName() {
-	strings.TrimSpace(depo.lastName)
+	defer func() {
+		if errString := recover(); errString != nil {
+			fmt.Println(errString)
+		}
+	}()
 	if len(strings.TrimSpace(depo.lastName)) == 0 {
 		panic(ErrInvalidLastName)
 	}
@@ -48,7 +56,7 @@ func main() {
 		lastName:      "  ",
 		firstName:     "Vladimir",
 		bankName:      "ING",
-		routingNumber: 156,
+		routingNumber: 56,
 		accountNumber: 456,
 	}
 	depo.validateRoutingNumber()
