@@ -5,21 +5,17 @@ import (
 	"time"
 )
 
-func main() {
+func timeToFormattedString() string {
+
 	current := time.Now()
-	// format to: "02:49:21 21/06/2021."
-	formatted := timeToFormattedString(current)
-	fmt.Println(formatted)
-}
-
-func timeToFormattedString(mytime time.Time) string {
-
-	return fmt.Sprintf("%d:%d:%d %d/%d/%d",
-		mytime.Hour(),
-		mytime.Minute(),
-		mytime.Second(),
-		mytime.Year(),
-		int(mytime.Month()),
-		mytime.Day(),
+	formatted := fmt.Sprintf("%d:%d:%d %d/%d/%d",
+		current.Hour(),
+		current.Minute(),
+		current.Second(),
+		current.Year(),
+		int(current.Month()),
+		current.Day(),
 	)
+	fmt.Println(formatted)
+	return formatted
 }
