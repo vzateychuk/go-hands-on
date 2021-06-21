@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 	"time"
 )
 
 func main() {
-	Date := time.Now()
-	s := strconv.Itoa(Date.Year()) + "_" + Date.Month().String() + "_" + strconv.Itoa(Date.Day())
-	fmt.Println(s)
+	Current := time.Now()
+	Los_Angeles, _ := time.LoadLocation("America/Los_Angeles")
+	fmt.Println("The local current time is:", Current.Format(time.ANSIC))
+	fmt.Println("The time in Los_Angeles is: ", Current.In(Los_Angeles).Format(time.ANSIC))
 }
