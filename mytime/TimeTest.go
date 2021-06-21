@@ -5,9 +5,15 @@ import (
 	"time"
 )
 
-func main() {
+func timeDiff(timezone string) (string, string) {
 	Current := time.Now()
-	Los_Angeles, _ := time.LoadLocation("America/Los_Angeles")
-	fmt.Println("The local current time is:", Current.Format(time.ANSIC))
-	fmt.Println("The time in Los_Angeles is: ", Current.In(Los_Angeles).Format(time.ANSIC))
+	RemoteZone, _ := time.LoadLocation(timezone)
+	RemoteTime := Current.In(RemoteZone)
+	fmt.Println("The current time is: ", Current.Format(time.ANSIC))
+	fmt.Println("The timezone:", timezone, "time is:", RemoteTime)
+	return Current.Format(time.ANSIC), RemoteTime.Format(time.ANSIC)
+}
+
+func main() {
+	fmt.Println(timeDiff("America/Los_Angeles"))
 }
