@@ -9,3 +9,7 @@ the location of the CSV bank transaction file and the location of a log file. We
 that the log and bank file location is valid before the application starts parsing the CSV
 file. The program will parse the CSV file and log any errors it encounters to the log.
 Upon each restart of the program, it will also delete the previous log file.
+
+Запуск из командной строки
+---
+`go run main.go -c bank.csv -l log.log`
