@@ -7,20 +7,19 @@ import (
 
 var CategoryNotFoundError = errors.New("budget category is not found.")
 
-type Category int
+type Category string
 
 const (
-	Fuel = iota
-	Food
-	Mortgage
-	Repairs
-	Insurance
-	Utilities
-	Retirement
-	Unknown
+	Fuel       Category = "fuel"
+	Food       Category = "food"
+	Mortgage   Category = "mortgage"
+	Repairs    Category = "repairs"
+	Insurance  Category = "insurance"
+	Utilities  Category = "utilities"
+	Retirement Category = "retirement"
 )
 
-func GetByName(name string) (Category, error) {
+func GetCategoryBy(name string) (Category, error) {
 	lower := strings.ToLower(strings.TrimSpace(name))
 	switch lower {
 	case "fuel", "gas":
@@ -38,11 +37,6 @@ func GetByName(name string) (Category, error) {
 	case "retirement":
 		return Retirement, nil
 	default:
-		return Unknown, CategoryNotFoundError
+		return "", CategoryNotFoundError
 	}
-}
-
-func (c Category) String() string {
-	cats := []string{"Fuel", "Food", "Mortgage", "Repairs", "Insurance", "Utilities", "Retirement", "Unknown"}
-	return cats[c]
 }

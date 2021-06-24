@@ -3,9 +3,9 @@ package budget
 import "fmt"
 
 type Transaction struct {
-	ID       string
+	ID       int
 	Payee    string
-	Spent    string
+	Spent    float64
 	Category Category
 }
 
