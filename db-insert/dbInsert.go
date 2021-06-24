@@ -12,13 +12,13 @@ func main() {
 	db, err := sql.Open("postgres",
 		"user=postgres password=root host=127.0.0.1 port=5432 dbname=postgres sslmode=disable")
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 	defer db.Close()
 
 	insert, err := db.Prepare("INSERT INTO public.test VALUES ($1, $2)")
 	if err != nil {
-		log.Fatal(err)
+		log.Panic(err)
 	}
 	defer insert.Close()
 
@@ -31,7 +31,7 @@ func main() {
 		}
 		_, err = insert.Exec(i, prop)
 		if err != nil {
-			log.Fatal(err)
+			log.Panic(err)
 		} else {
 			log.Println("The number:", i, "is:", prop)
 		}
