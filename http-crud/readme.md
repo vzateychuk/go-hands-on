@@ -6,7 +6,8 @@ CRUD endpoints
 - Создается сервер, endpoints: '/people/?id=...', 
     http://localhost:8080/people/ - список всех people
     http://localhost:8080/people/?id=xxx - информация по одному из people
-
+    http://localhost:8080/ - детальная информация по пользователю
+    http://localhost:8080/form - добавление пользователя
 Запуск
 ---
 1. Запустить БД Postgresql с помощью Docker и вместе с ним PGadmin:
