@@ -1,4 +1,4 @@
-package dbinit
+package db
 
 import (
 	"database/sql"
@@ -49,7 +49,8 @@ func populateTable(tableName string, db *sql.DB) error {
 /* Создать в БД таблицу (tableName) и заполнить ее некоторым количеством записей (entityAmount) */
 func DBInit(tableName string) error {
 	// Подключиться к БД
-	db, err := sql.Open("postgres", "user=postgres password=root host=127.0.0.1 port=5432 dbname=postgres sslmode=disable")
+	db, err := sql.Open("postgres",
+		"user=postgres password=root host=127.0.0.1 port=5432 dbname=postgres sslmode=disable")
 	if err != nil {
 		log.Print(err)
 	} else {
