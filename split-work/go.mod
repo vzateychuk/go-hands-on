@@ -1,3 +1,3 @@
-module github.com/vzateychuk/go-hands-on/splitwork
+module vez/splitwork
 
 go 1.16
