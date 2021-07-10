@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 func showIndexPage(c *gin.Context) {
@@ -12,6 +13,29 @@ func showIndexPage(c *gin.Context) {
 	render(c, gin.H{
 		"title":   "Home Page",
 		"payload": articles}, "index.html")
+}
+
+func getArticle(c *gin.Context) {
+	// Check if the article ID is valid
+	articleID, err := strconv.Atoi(c.Param("article_id"))
+	if err != nil {
+		c.AbortWithError(http.StatusNotFound, err) // If the article is not found, abort with an error
+	}
+
+	article, err := getArticleByID(articleID)
+	if err != nil {
+		c.AbortWithStatus(http.StatusNotFound) // If an invalid article ID is specified in the URL, abort with an error
+	}
+
+	// Call the HTML method of the Context to render a template
+	c.HTML(
+		http.StatusOK, // Set the HTTP status to 200 (OK)
+		"article.html",
+		gin.H{ // Pass the data that the page uses
+			"title":   article.Title,
+			"payload": article,
+		},
+	)
 }
 
 // Render one of HTML, JSON or CSV based on the 'Accept' header of the request
