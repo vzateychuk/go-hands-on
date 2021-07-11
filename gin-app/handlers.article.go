@@ -22,20 +22,14 @@ func getArticle(c *gin.Context) {
 		c.AbortWithError(http.StatusNotFound, err) // If the article is not found, abort with an error
 	}
 
-	article, err := getArticleByID(articleID)
+	arte, err := getArticleByID(articleID)
 	if err != nil {
 		c.AbortWithStatus(http.StatusNotFound) // If an invalid article ID is specified in the URL, abort with an error
 	}
 
 	// Call the HTML method of the Context to render a template
-	c.HTML(
-		http.StatusOK, // Set the HTTP status to 200 (OK)
-		"article.html",
-		gin.H{ // Pass the data that the page uses
-			"title":   article.Title,
-			"payload": article,
-		},
-	)
+	render(c, gin.H{"title": arte.Title, "payload": arte}, "article.html")
+
 }
 
 // Render one of HTML, JSON or CSV based on the 'Accept' header of the request
