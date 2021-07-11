@@ -1,5 +1,13 @@
 # Go Web Application Using Gin lib
 
+## Show list of articles
+* curl -X GET -H "Accept: application/json" http://localhost:8080/
+* curl -X GET -H "Accept: application/xml" http://localhost:8080/
+* curl -X GET http://localhost:8080/
+
+## Show article
+* curl -X GET -H "Accept: application/xml" http://localhost:8080/article/view/1
+
 ## Application Functionality
 
 The application we’ll build is a simple article manager. This application should:

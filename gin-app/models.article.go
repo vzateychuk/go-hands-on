@@ -20,16 +20,25 @@ var articleList = []article{
 }
 
 // Return a list of all the articles
-func getAllArticles() []article {
+func findAll() []article {
 	return articleList
 }
 
 // Fetches the article
-func getArticleByID(id int) (*article, error) {
+func findByID(id int) (*article, error) {
 	for _, article := range articleList {
 		if article.ID == id {
 			return &article, nil
 		}
 	}
 	return nil, errors.New("Not found article by id: " + strconv.Itoa(id))
+}
+
+// Create a new article with the title and content provided
+func saveNew(a article) (*article, error) {
+
+	// Add the article to the list of articles
+	articleList = append(articleList, a)
+
+	return &a, nil
 }

@@ -7,7 +7,7 @@ import "testing"
 // variable articleList are identical. It then loops over the article list to verify that each article is identical.
 // The test fails if either of these two checks fail.
 func TestGetAllArticles(t *testing.T) {
-	alist := getAllArticles()
+	alist := findAll()
 
 	// Check that the length of the list of articles returned is the
 	// same as the length of the global variable holding the list
