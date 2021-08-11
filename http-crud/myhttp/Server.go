@@ -2,11 +2,20 @@ package myhttp
 
 import (
 	"fmt"
+	"github.com/prometheus/client_golang/prometheus"
 	"log"
 	"net/http"
+
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func RunServer(port int) {
+
+	recordUptime()
+	prometheus.MustRegister(httpReqs)
+
+	http.Handle("/metrics", promhttp.Handler())
+
 	testHandler := &PeopleHandler{Name: "peopleHandler"} // обработчик
 	http.Handle("/people/", testHandler)
 

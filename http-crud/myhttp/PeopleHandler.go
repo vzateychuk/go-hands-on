@@ -16,6 +16,8 @@ type PeopleHandler struct {
 
 // Получить либо список данных либо одну запись и записать в response
 func (handler *PeopleHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
+	invokeCount.Inc()
+
 	id := request.URL.Query().Get("id") // получить параметр GET запроса
 	bytes := []byte{}
 	var err error
@@ -41,5 +43,8 @@ func (handler *PeopleHandler) ServeHTTP(writer http.ResponseWriter, request *htt
 	} else {
 		fmt.Fprintln(writer, string(bytes))
 	}
+
+	httpReqs.WithLabelValues("200", "GET").Inc()
+
 	fmt.Fprintln(writer, "Handler:", handler.Name, "URL:", request.URL.String(), "id:", id)
 }
