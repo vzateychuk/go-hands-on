@@ -1,0 +1,4 @@
+
+docker run -tid --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=root postgres
+
+docker run -tid --name pgadmin -p 5555:80 -e PGADMIN_DEFAULT_EMAIL=vlad@vlad.com -e PGADMIN_DEFAULT_PASSWORD=root dpage/pgadmin4

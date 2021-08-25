@@ -99,6 +99,19 @@ func trackContextTimings(ctx context.Context, metricName string, start time.Time
 	}
 }
 
+type ResourceError struct {
+	URL string
+	Err error
+}
+
+func (re *ResourceError) Error() string {
+	return fmt.Sprintf(
+		"Resource error: URL: %s, err: %v",
+		re.URL,
+		re.Err,
+	)
+}
+
 func logContextTimings(ctx context.Context, path string, start time.Time) {
 	// получаем тайминги из контекста
 	// поскольку там пустой интерфейс, то нам надо преобразовать к нужному типу
