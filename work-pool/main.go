@@ -10,7 +10,7 @@ import (
 const goroutineAmount = 4
 
 func main() {
-	worker := work.GetWorkerInstance(goroutineAmount)
+	worker := work.GetExecutorInstance(goroutineAmount)
 
 	for i := 0; i < 5; i++ {
 		var taskAmt = rand.Intn(20) + 1

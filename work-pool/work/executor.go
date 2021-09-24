@@ -13,43 +13,45 @@ type Doable interface {
 	DoWork(wrk *WorkItem)
 }
 
-type Worker struct {
+type Executor struct {
 	input      chan *WorkItem
 	wrksAmount int
 }
 
-func (w *Worker) DoWork(wrk *WorkItem) error {
+func (w *Executor) DoWork(wrk *WorkItem) error {
+	// записываем задания в очередь задач
 	go func() {
 		w.input <- wrk
 	}()
 	return nil
 }
 
-var worker *Worker
+var executor *Executor
 var once sync.Once
 
-func GetWorkerInstance(amount int) *Worker {
+func GetExecutorInstance(parallelism int) *Executor {
 
-	// Use the sync.Once to enforce goroutine safety create singleton
+	// Создаем singleton
 	once.Do(func() {
-		fmt.Println("Singleton : Creating Worker instance")
+		fmt.Println("Singleton : Creating Executor instance")
 
-		// канал которым будут пользоваться worker-ы для передачи заданий
+		// канал которым будут пользоваться executor-ы для передачи заданий
 		inputChan := make(chan *WorkItem, 2)
 
-		// создаем экземпляр worker, со ссылкой на channel через который будем передавать задания
-		worker = &Worker{
+		// создаем экземпляр executor, со ссылкой на input
+		// channel через который будем передавать задания
+		executor = &Executor{
 			input:      inputChan,
-			wrksAmount: amount,
+			wrksAmount: parallelism,
 		}
 
-		// стартует pool worker-в зачитывающих значения из канала
-		for i := 0; i < amount; i++ {
+		// стартует pool executor-в зачитывающих значения из канала
+		for i := 0; i < parallelism; i++ {
 			go startWorker(i, inputChan)
 		}
 
 	})
-	return worker
+	return executor
 }
 
 //region Private
@@ -63,7 +65,7 @@ func startWorker(workerId int, inputChan chan *WorkItem) {
 		// передаем выполнение следующей goroutine
 		runtime.Gosched()
 	}
-	fmt.Printf("<=== Worker: %v Stoped\n", workerId) // сообщает о завершении worker
+	fmt.Printf("<=== Worker: %v Stoped\n", workerId) // сообщает о завершении executor
 }
 
 func doWork(workerId int, wrk *WorkItem) string {

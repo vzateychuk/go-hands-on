@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-/* Это порция работы, "выдаваемая" извне в worker */
+/* Это порция работы, "выдаваемая" извне в executor */
 type WorkItem struct {
 	WorkId string
 	Delay  int
@@ -16,6 +16,7 @@ func init() {
 	rand.Seed(time.Now().UnixNano())
 }
 
+// Служит для создания списка задач (случайных)
 func NewWorkItems(n int) []*WorkItem {
 
 	prefix := time.Now().Format(time.RFC1123) + "-"
