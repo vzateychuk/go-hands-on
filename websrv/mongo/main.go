@@ -10,7 +10,7 @@ import (
 
 func main() {
 	// подключение к Mongo
-	sess, err := mgo.Dial("mongodb://localhost:27017")
+	sess, err := mgo.Dial("mongodb://root:example@localhost:27017")
 	__err_panic(err)
 
 	// если коллекции не будет, то она создасться автоматически
@@ -18,8 +18,10 @@ func main() {
 
 	// для Mongo вставляем демо-запись если коллекция пуста
 	if n, _ := collection.Count(); n == 0 {
-		collection.Insert(NewItem("mongodb", "Рассказать про монгу", ""))
-		collection.Insert(NewItem("redis", "Рассказать про redis", "vez"))
+		err1 := collection.Insert(NewItem("mongodb", "Рассказать про монгу", ""))
+		__err_panic(err1)
+		err2 := collection.Insert(NewItem("redis", "Рассказать про redis", "vez"))
+		__err_panic(err2)
 	}
 
 	handlers := &Handler{
