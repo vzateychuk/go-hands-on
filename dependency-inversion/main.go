@@ -10,8 +10,9 @@ import (
 func main() {
 
 	logger := LoggerAdapter(log.PrintMessage)
-	store := store.NewSimpleDataStore()
-	logic := NewSimpleLogic(logger, store)
+	ds := store.NewSimpleDataStore()
+	dataStore := DataStoreAdapter(ds.GetUserById)
+	logic := NewSimpleLogic(logger, dataStore)
 	contr := NewController(logger, logic)
 	http.HandleFunc("/hello", contr.SayHello)
 	http.ListenAndServe(":8080", nil)

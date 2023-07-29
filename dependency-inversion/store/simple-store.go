@@ -5,7 +5,7 @@ type SimpleDataStore struct {
 	userData map[string]string
 }
 
-func (sds *SimpleDataStore) UserNameForID(userId string) (string, bool) {
+func (sds *SimpleDataStore) GetUserById(userId string) (string, bool) {
 	name, ok := sds.userData[userId]
 	return name, ok
 }
